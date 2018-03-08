@@ -19,6 +19,9 @@ if (process.argv[2] == "my-tweets") {
             console.log("At " + tweets[i].created_at + ": '" + tweets[i].text + "'" + "\n");
         }
     });
+    fs.appendFile('log.txt', process.argv[2] + "\n", (err) => {
+        if (err) throw err;
+    });
 }
 else if (process.argv[2] == "spotify-this-song") {
     spotify.search({ type: 'track', query: process.argv[3], limit: 5 }, function (err, data) {
@@ -31,6 +34,9 @@ else if (process.argv[2] == "spotify-this-song") {
         if (data.tracks.items["0"].preview_url != null) {
             console.log("Preview URL: " + data.tracks.items["0"].preview_url);
         }
+    });
+    fs.appendFile('log.txt', process.argv[2] + "\n", (err) => {
+        if (err) throw err;
     });
 }
 else if (process.argv[2] == "movie-this") {
@@ -45,6 +51,9 @@ else if (process.argv[2] == "movie-this") {
             console.log("Plot: " + JSON.parse(body).Plot);
             console.log("Actors: " + JSON.parse(body).Actors);
         }
+    });
+    fs.appendFile('log.txt', process.argv[2] + "\n", (err) => {
+        if (err) throw err;
     });
 
 }
@@ -66,5 +75,8 @@ else if (process.argv[2] == "do-what-it-says") {
                 console.log("Preview URL: " + data.tracks.items["0"].preview_url);
             }
         });
+    });
+    fs.appendFile('log.txt', process.argv[2] + "\n", (err) => {
+        if (err) throw err;
     });
 }
