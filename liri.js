@@ -11,13 +11,7 @@ var client = new Twitter(keys.twitter);
 module.exports = keys.twitter;
 module.exports = keys.spotify;
 
-function tweetSearch() {
-    var twitterURL = "https://api.twitter.com/1.1/search/tweets.json?q=rankouOTN%20&src=typd";
-
-    console.log(twitterURL);
-}
 if (process.argv[2] == "my-tweets") {
-    tweetSearch();
     client.get("statuses/user_timeline", "user_id=968921129921335297", function (error, tweets, response) {
         for (i = 0; i < tweets.length; i++) {
             if (error) throw error;
@@ -25,3 +19,17 @@ if (process.argv[2] == "my-tweets") {
         }
     });
 }
+else if (process.argv[2] == "spotify-this-song") {
+    spotify.search({ type: 'track', query: process.argv[3], limit: 5 }, function(err, data) {
+        if (err) {
+          return console.log('Error occurred: ' + err);
+        }
+      console.log("Artist: " + data.tracks.items["0"].album.artists["0"].name)
+      console.log("Track name: " + data.tracks.items["0"].name)
+      console.log("Album: " + data.tracks.items["0"].album.name)
+      if (data.tracks.items["0"].preview_url != null) {
+          console.log("Preview URL: " + data.tracks.items["0"].preview_url);
+      }
+      });
+}
+
